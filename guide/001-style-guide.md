@@ -24,7 +24,7 @@ $exampleVariable = 'Bit' . ' ' . 'Book';
 
 ### Variable Substitution
 ```php
-$greeting = "Hello $name, welcome back!";
+$greeting = 'Hello $name, welcome back!';
 
-$greeting = "Hello {$name}, welcome back!";
+$greeting = 'Hello {$name}, welcome back!';
 ```
