@@ -10,5 +10,5 @@ before_script:
     - phpenv config-rm xdebug.ini
 
 script:
-    #- php phpunit.phar tests/
-    - phpunit tests/
+    - php phpunit.phar tests/
+    #- phpunit tests/
