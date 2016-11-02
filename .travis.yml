@@ -1,0 +1,10 @@
+language: php
+
+php:
+    - 5.3
+
+install:
+    - wget https://phar.phpunit.de/phpunit.phar
+
+script:
+    - php phpunit.phar tests/
