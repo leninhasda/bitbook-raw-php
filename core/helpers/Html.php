@@ -33,6 +33,52 @@ class Html
         $this->attrs = $attrs;
     }
 
-    
+    /**
+     * Add an attribute to the element
+     */
+    public function attr($attr, $value = null)
+    {
+        if (is_array($attr))
+            $this->attrs = array_merge($this->attrs, $attr);
+        else
+            $this->attrs = array_merge($this->attrs, array($attr => $value));
+    }
+
+    /**
+     * create html result.
+     */
+    public function output()
+    {
+        // Start the tag
+        $output = '<' . $this->tag;
+
+        // Add the attributes
+        foreach ($this->attrs as $attr => $value) {
+            if ($attr == 'text')
+                continue;
+
+            if (is_integer($attr))
+                $attr = $value;
+            $output .= ' ' . $attr . '="' . $value . '"';
+        }
+
+        // Close the tag
+        if ($this->self_closing)
+            $output .= ' />';
+        else
+            $output .= '>' . $this->attrs['text'] . '</' . $this->tag . '>';
+
+        return $output;
+
+    }
+
+    //return result
+    function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->output();
+
+    }
+
 
 }
