@@ -1,10 +1,14 @@
 language: php
 
 php:
-    - 5.3
+    - 5.6
 
 install:
     - wget https://phar.phpunit.de/phpunit.phar
 
+before_script:
+    - phpenv config-rm xdebug.ini
+
 script:
-    - php phpunit.phar tests/
+    #- php phpunit.phar tests/
+    - phpunit tests/
