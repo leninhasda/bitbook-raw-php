@@ -2,7 +2,7 @@
 
 ## Here is how you get started:
 * `Fork` the repo to your account
-* `git clone` from you fork
+* `git clone` from your fork
 * Add original repo as `upstream`
 ```
 git remote add upstream https://github.com/python-bangladesh/pybd.org.git
@@ -19,7 +19,7 @@ git checkout dev-lenin
 git rebase master
 # resolve conflicts, if any, and commit those before pushing it to github
 ```
-* Push your changes on a new branch into you fork
+* Push your changes on a new branch into your fork
 ```
 git push origin dev-lenin:new-branch-name
 ```
