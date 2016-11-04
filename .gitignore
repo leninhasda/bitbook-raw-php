@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 .idea/bitbook-raw-php.iml
 
@@ -12,3 +13,13 @@
 .idea/vcs.xml
 
 .idea/workspace.xml
+=======
+# project settings
+.idea
+
+# php unit
+phpunit.phar
+
+# tmp files
+~*
+>>>>>>> leninhasda/master
