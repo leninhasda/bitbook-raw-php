@@ -81,7 +81,7 @@ class Html
         $attr = '';
         $tagName = 'a';
         $string .= '<' . $tagName;
-        $string .= ' ' . 'href="' . $url.'"';
+        $string .= ' ' . 'href="' . $url . '"';
         if (!is_null($attributes)) {
             foreach ($attributes as $key => $value) {
                 if (!empty($value)) {
@@ -115,5 +115,68 @@ class Html
         $string .= '>' . $content . CHR(13) . CHR(10) . CHR(9) . '</' . $tagName . '>';
         return $string;
     }
-    
+
+
+    //Input tags
+    public static function input($type, $attributes = [])
+    {
+        $string = '';
+        $attr = '';
+        $tagName = 'input';
+        $string .= '<' . $tagName . ' type=' . $type;
+        if (!is_null($attributes)) {
+            foreach ($attributes as $key => $value) {
+                if (!empty($value)) {
+                    $attr .= ' ' . $key . '="' . $value . '"';
+                } else {
+                    $attr .= ' ' . $key;
+                }
+            }
+            $string .= ' ' . ($attr);
+        }
+        $string .= '>' . CHR(13) . CHR(10) . CHR(9) . '</' . $tagName . '>';
+        return $string;
+    }
+
+    public static function textInput( $attributes = [])
+    {
+        $string = '';
+        $attr = '';
+        $tagName = 'input';
+        $type= 'text';
+        $string .= '<' . $tagName . ' type=' . $type;
+        if (!is_null($attributes)) {
+            foreach ($attributes as $key => $value) {
+                if (!empty($value)) {
+                    $attr .= ' ' . $key . '="' . $value . '"';
+                } else {
+                    $attr .= ' ' . $key;
+                }
+            }
+            $string .= ' ' . ($attr);
+        }
+        $string .= '>' . CHR(13) . CHR(10) . CHR(9) . '</' . $tagName . '>';
+        return $string;
+    }
+
+    public static function passwordInput( $attributes = [])
+    {
+        $string = '';
+        $attr = '';
+        $tagName = 'input';
+        $type= 'password';
+        $string .= '<' . $tagName . ' type=' . $type;
+        if (!is_null($attributes)) {
+            foreach ($attributes as $key => $value) {
+                if (!empty($value)) {
+                    $attr .= ' ' . $key . '="' . $value . '"';
+                } else {
+                    $attr .= ' ' . $key;
+                }
+            }
+            $string .= ' ' . ($attr);
+        }
+        $string .= '>' . CHR(13) . CHR(10) . CHR(9) . '</' . $tagName . '>';
+        return $string;
+    }
 }
