@@ -30,26 +30,17 @@ class Html
             'track',
             'wbr');
         $string = '';
-        $attr = '';
-
         if (!empty($tagName)) {
             $string .= '<' . $tagName;
 
             if (!is_null($attributes)) {
-                foreach ($attributes as $key => $value) {
-                    if (!empty($value)) {
-                        $attr .= ' ' . $key . '="' . $value . '"';
-                    } else {
-                        $attr .= ' ' . $key;
-                    }
-                }
-                $string .= ' ' . ($attr);
+                $string .= ' ' . (self::getAttributes($attributes));
             }
             //checking if tag is selfCloser
             if (in_array($tagName, $selfClosers)) {
-                $string .= '/>' . CHR(13) . CHR(10) . CHR(9);
+                $string .= '/>';
             } else {
-                $string .= '>' . $content . CHR(13) . CHR(10) . CHR(9) . '</' . $tagName . '>';
+                $string .= '>' . $content . '</' . $tagName . '>';
             }
         }
         return $string;
@@ -57,63 +48,25 @@ class Html
 
     public static function div($content = '', $attributes)
     {
-        $string = '';
-        $attr = '';
-        $tagName = 'div';
-        $string .= '<' . $tagName;
-        if (!is_null($attributes)) {
-            foreach ($attributes as $key => $value) {
-                if (!empty($value)) {
-                    $attr .= ' ' . $key . '="' . $value . '"';
-                } else {
-                    $attr .= ' ' . $key;
-                }
-            }
-            $string .= ' ' . ($attr);
-        }
-        $string .= '>' . $content . CHR(13) . CHR(10) . CHR(9) . '</' . $tagName . '>';
-        return $string;
+        return self::tag('div', $content, $attributes);
     }
 
     public static function a($url = '', $content = '', $attributes)
     {
         $string = '';
-        $attr = '';
         $tagName = 'a';
         $string .= '<' . $tagName;
         $string .= ' ' . 'href="' . $url . '"';
         if (!is_null($attributes)) {
-            foreach ($attributes as $key => $value) {
-                if (!empty($value)) {
-                    $attr .= ' ' . $key . '="' . $value . '"';
-                } else {
-                    $attr .= ' ' . $key;
-                }
-            }
-            $string .= ' ' . ($attr);
+            $string .= ' ' . (self::getAttributes($attributes));
         }
-        $string .= '>' . $content . CHR(13) . CHR(10) . CHR(9) . '</' . $tagName . '>';
+        $string .= '>' . $content . '</' . $tagName . '>';
         return $string;
     }
 
     public static function span($content = '', $attributes)
     {
-        $string = '';
-        $attr = '';
-        $tagName = 'span';
-        $string .= '<' . $tagName;
-        if (!is_null($attributes)) {
-            foreach ($attributes as $key => $value) {
-                if (!empty($value)) {
-                    $attr .= ' ' . $key . '="' . $value . '"';
-                } else {
-                    $attr .= ' ' . $key;
-                }
-            }
-            $string .= ' ' . ($attr);
-        }
-        $string .= '>' . $content . CHR(13) . CHR(10) . CHR(9) . '</' . $tagName . '>';
-        return $string;
+        return self::tag('span', $content, $attributes);
     }
 
 
@@ -134,16 +87,16 @@ class Html
             }
             $string .= ' ' . ($attr);
         }
-        $string .= '>' . CHR(13) . CHR(10) . CHR(9) . '</' . $tagName . '>';
+        $string .= '>' . '</' . $tagName . '>';
         return $string;
     }
 
-    public static function textInput( $attributes = [])
+    public static function textInput($attributes = [])
     {
         $string = '';
         $attr = '';
         $tagName = 'input';
-        $type= 'text';
+        $type = 'text';
         $string .= '<' . $tagName . ' type=' . $type;
         if (!is_null($attributes)) {
             foreach ($attributes as $key => $value) {
@@ -155,16 +108,16 @@ class Html
             }
             $string .= ' ' . ($attr);
         }
-        $string .= '>' . CHR(13) . CHR(10) . CHR(9) . '</' . $tagName . '>';
+        $string .= '>' . '</' . $tagName . '>';
         return $string;
     }
 
-    public static function passwordInput( $attributes = [])
+    public static function passwordInput($attributes = [])
     {
         $string = '';
         $attr = '';
         $tagName = 'input';
-        $type= 'password';
+        $type = 'password';
         $string .= '<' . $tagName . ' type=' . $type;
         if (!is_null($attributes)) {
             foreach ($attributes as $key => $value) {
@@ -176,7 +129,51 @@ class Html
             }
             $string .= ' ' . ($attr);
         }
-        $string .= '>' . CHR(13) . CHR(10) . CHR(9) . '</' . $tagName . '>';
+        $string .= '>' . '</' . $tagName . '>';
         return $string;
     }
+
+//    --------------------------------------------------
+//need to check
+//    public function checkTag($tag)
+//    {
+//        $htmlTag = null;
+//        if (is_null($this->content)) {
+//            $this->content = array();
+//        }
+//        if (is_object($tag) && get_class($tag) == get_class($this)) {
+//            $htmlTag = $tag;
+//        } else {
+//            $htmlTag = new Html($tag);
+//            $this->content[] = $htmlTag;
+//        }
+//        return $htmlTag;
+//    }
+
+    public static function getAttributes($attributes)
+    {
+        $string = '';
+        foreach ($attributes as $key => $value) {
+            if (!empty($value)) {
+                $string .= ' ' . $key . '="' . $value . '"';
+            } else {
+                $string .= ' ' . $key;
+            }
+        }
+        return substr($string, 1);
+    }
+
+//    private function getContent()
+//    {
+//        $string = '';
+//        if (!is_null($this->content)) {
+//            if (is_object($this->content) && get_class($this->content) == get_class($this)) {
+//                $string .= $this->checkTag($this->content);
+//            } else {
+//                $string .= $this->content . CHR(13) . CHR(10) . CHR(9);
+//            }
+//        }
+//        return $string;
+//    }
+
 }

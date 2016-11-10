@@ -16,6 +16,10 @@ include "html.php"; ?>
 
 echo Html::tag('div', 'asdasd', ['id' => '1', 'value' => '123']);
 
+
+
+
+
 //just for selfcloser tag testing
 echo Html::tag('input', '', ['id' => '1', 'value' => '123']);
 
@@ -26,6 +30,7 @@ echo Html::span('asdasd', ['id' => '1', 'class' => 'a 123']);
 
 echo Html::passwordInput(['name' => 'testName', 'id' => '1', 'class' => 'a 123']);
 
+echo Html::div('Hasda', ['id' => '1', 'class' => 'a 123']);
 ?>
 
 
