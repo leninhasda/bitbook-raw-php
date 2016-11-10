@@ -4,9 +4,6 @@
  *
  * @author: Y T
  *
- * /
- *
- * /**
  * $tag: the tag being created
  * $attributes: an array of attributes: id, class, href, title, text, alt, target etc.
  * $content: can be null, a string or tag object
