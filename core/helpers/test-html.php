@@ -1,12 +1,10 @@
 <?php
 /**
- * Created by IntelliJ IDEA.
- * User: yasirtaher
- * Date: 2016/11/02
- * Time: 19:49
+ *
+ * @author: Y T
+ *
  */
-include "../core/helpers/Html.php";
-?>
+include "html.php"; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,24 +14,10 @@ include "../core/helpers/Html.php";
 <body>
 <?php
 
-//div tag test
-$div = new Html('div');
-$div->attr(array(
-    'id' => 'testID',
-));
-echo $div;
-
-//input tag test
-$input = new html('input');
-$input->attr(array(
-    'id' => 'title',
-    'name' => 'title',
-    'value' => 'My Awesome Site'
-));
-
-echo $input;
+echo Html::tag('input', '', array('id' => '1'));
 
 ?>
+
 
 </body>
 </html>

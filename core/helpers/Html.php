@@ -1,84 +1,114 @@
 <?php
 
 /**
- * Created by IntelliJ IDEA.
- * User: yasirtaher
- * Date: 2016/11/02
- * Time: 19:23
+ *
+ * @author: Y T
+ *
+ * /
+ *
+ * /**
+ * $tag: the tag being created
+ * $attributes: an array of attributes: id, class, href, title, text, alt, target etc.
+ * $content: can be null, a string or tag object
+ * $selfclosers: tags that don't require a closing link
  */
 class Html
 {
-    private $tag;
-    private $self_closing = false;
-    private $attrs = array();
-    private $self_closing_list = array('input', 'img', 'hr', 'br', 'meta', 'link');
+    private static $_instance = null;
+    private $tag = null;
+    private $attributes = null;
+    private $content = null;
+    private $selfClosers = array('area',
+        'base',
+        'br',
+        'col',
+        'command',
+        'embed',
+        'hr',
+        'img',
+        'input',
+        'keygen',
+        'link',
+        'meta',
+        'param',
+        'source',
+        'track',
+        'wbr');
 
-    /**
-     * Html constructor.
-     * @param $tag
-     * @param bool $self_closing
-     * @param array $attrs
-     */
-    public function __construct($tag, $self_closing = null, $attrs = array())
+    function __construct($tag, $content = '', $attributes = '')
     {
-        $this->tag = $tag;
-        //force to self close
-        if (is_null($self_closing)) {
-            $this->self_closing = in_array($tag, $this->self_closing_list);
+        $this->tag = strtolower($tag);
+        if (!empty($content)) $this->content = $content;
+        if (!empty($attributes)) $this->attributes = $attributes;
+        return $this;
+    }
+
+    public static function tag($tag, $content = '', $attributes = '')
+    {
+        self::$_instance = new Html($tag, $content, $attributes);
+        return self::$_instance;
+    }
+
+    public function checkTag($tag)
+    {
+        $html = null;
+        if (is_null($this->content)) {
+            $this->content = array();
+        }
+        if (is_object($tag) && get_class($tag) == get_class($this)) {
+            $html = $tag;
         } else {
-            $this->self_closing = $self_closing;
+            $html = new Html($tag);
+            $this->content[] = $html;
         }
-
-        $attrs['text'] = (empty($attrs['text'])) ? '' : $attrs['text'];
-        $this->attrs = $attrs;
+        return $html;
     }
 
-    /**
-     * Add an attribute to the element
-     */
-    public function attr($attr, $value = null)
+    public function __toString()
     {
-        if (is_array($attr))
-            $this->attrs = array_merge($this->attrs, $attr);
-        else
-            $this->attrs = array_merge($this->attrs, array($attr => $value));
+        return $this->getTag();
     }
 
-    /**
-     * create html result.
-     */
-    public function output()
+    //setting all values
+    public function getTag()
     {
-        // Start the tag
-        $output = '<' . $this->tag;
-
-        // Add the attributes
-        foreach ($this->attrs as $attr => $value) {
-            if ($attr == 'text')
-                continue;
-
-            if (is_integer($attr))
-                $attr = $value;
-            $output .= ' ' . $attr . '="' . $value . '"';
+        $string = '';
+        if (!empty($this->tag)) {
+            $string .= '<' . $this->tag;
+            if (!is_null($this->attributes)) $string .= ' ' . $this->getAttributes();
+            if (in_array($this->tag, $this->selfClosers)) {
+                $string .= '/>' . CHR(13) . CHR(10) . CHR(9);
+            } else {
+                $string .= '>' . $this->getContent() . '</' . $this->tag . '>';
+            }
         }
-
-        // Close the tag
-        if ($this->self_closing)
-            $output .= ' />';
-        else
-            $output .= '>' . $this->attrs['text'] . '</' . $this->tag . '>';
-
-        return $output;
-
+        return $string;
     }
 
-    //return result
-    function __toString()
+    private function getAttributes()
     {
-        // TODO: Implement __toString() method.
-        return $this->output();
-
+        $string = '';
+        foreach ($this->attributes as $key => $value) {
+            if (!empty($value)) {
+                $string .= ' ' . $key . '="' . $value . '"';
+            } else {
+                $string .= ' ' . $key;
+            }
+        }
+        return substr($string, 1);
     }
 
 
+    private function getContent()
+    {
+        $string = '';
+        if (!is_null($this->content)) {
+            if (is_object($this->content) && get_class($this->content) == get_class($this)) {
+                $string .= $this->checkTag($this->content);
+            } else {
+                $string .= $this->content . CHR(13) . CHR(10) . CHR(9);
+            }
+        }
+        return $string;
+    }
 }
