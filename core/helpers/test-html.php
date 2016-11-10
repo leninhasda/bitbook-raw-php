@@ -14,7 +14,15 @@ include "html.php"; ?>
 <body>
 <?php
 
-echo Html::tag('input', '', array('id' => '1'));
+echo Html::tag('div', 'asdasd',['id' => '1','value'=>'123']);
+
+//just for selfcloser tag testing
+echo Html::tag('input','',['id' => '1','value'=>'123']);
+
+
+echo Html::a('www.test.com','asdasd',['id' => '1','class'=>'aa 123']);
+
+echo Html::span('asdasd',['id' => '1','class'=>'a 123']);
 
 ?>
 
