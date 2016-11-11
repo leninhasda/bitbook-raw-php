@@ -21,17 +21,21 @@ include "html.php"; ?>
 //echo Html::tag('input', '', ['id' => '1', 'value' => '123']);
 //
 //
+echo CHR(10);
 echo Html::a('www.test.com', 'asdasd', ['id' => '1', 'class' => 'aa 123']);
+echo CHR(10);
+echo CHR(10);
+echo CHR(10);
+echo CHR(10);
+
+//echo Html::urlTo('www.fast.com');
+echo html::getBaseUrl();
+echo CHR(10);
+echo CHR(10);
+echo Html::stylesheet('../css/css.css', '');
 
 echo CHR(10);
-echo CHR(10);
-echo CHR(10);
-
-echo Html::urlTo('www.fast.com');
-
-echo CHR(10);
-echo CHR(10);
-echo CHR(10);
+echo Html::a('../a/d/a', 'bla bla',['id'=>'2']);
 //echo Html::span('asdasd', ['id' => '1', 'class' => 'a 123']);
 //
 //echo Html::passwordInput(['name' => 'testName', 'id' => '1', 'class' => 'a 123']);
@@ -41,8 +45,8 @@ echo CHR(10);
 //$test = Html::textarea('', ['id' => '1', 'class' => 'a 123', 'placeholder' => 'test input']);
 //$test .= Html::input('text', ['id' => '1', 'class' => 'a 123', 'placeholder' => 'test input']);
 
-
-echo Html::beginForm('/form/test()', 'post', ['id' => '1', 'class' => 'a 123']);
+echo CHR(10);echo CHR(10);echo CHR(10);echo CHR(10);
+echo Html::beginForm('form/test()', 'post', ['id' => '1', 'class' => 'a 123']);
 echo Html::input('text', ['id' => '1', 'class' => 'a 123', 'placeholder' => 'test input']);
 echo Html::passwordInput(['name' => 'testName', 'id' => '1', 'class' => 'a 123']);
 echo Html::endForm();

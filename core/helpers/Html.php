@@ -45,17 +45,17 @@ class Html
      * @param array $attributes attributes
      * @return string the generated URL
      */
-    public static function a($url = '', $content = '', $attributes, $scheme = false)
+    public static function a($url = '', $content = '', $attributes)
     {
         if ($url !== null) {
-            $attributes['href'] = static::urlTo($url, $scheme);
+            $attributes['href'] = static::urlTo($url);
         }
         return static::tag('a', $content, $attributes);
     }
 
-    public static function urlTo($url, $scheme = false)
+    public static function urlTo($url)
     {
-        return is_string($scheme) ? $scheme . $url : $url;
+        return strstr($url, '://') ? $url : static::getBaseUrl() . $url;
     }
 
 
@@ -94,6 +94,25 @@ class Html
     public static function endForm()
     {
         return '</form>';
+    }
+
+
+    public static function script($src, $attributes = [], $defer = true)
+    {
+        $attributes['type'] = 'text/javascript';
+        $attributes['src'] = static::urlTo($src);
+        if ($defer) {
+            $attributes['defer'] = 'defer';
+        }
+        return self::tag('script', '', $attributes);
+    }
+
+    public static function stylesheet($src, $attributes = [])
+    {
+        $attributes['type'] = 'text/css';
+        $attributes['href'] = static::urlTo($src);
+        $attributes['rel'] = 'stylesheet';
+        return self::tag('link', '', $attributes);
     }
 
 //    --------------------------------------------------
@@ -147,6 +166,25 @@ class Html
             }
         }
         return substr($string, 1);
+    }
+
+    public static function getBaseUrl()
+    {
+        // output: /myproject/index.php
+        $currentPath = $_SERVER['PHP_SELF'];
+
+        // output: Array ( [dirname] => /myproject [basename] => index.php [extension] => php [filename] => index )
+        $pathInfo = pathinfo($currentPath);
+
+        // output: localhost
+        $hostName = $_SERVER['HTTP_HOST'];
+
+        // output: http://
+        $protocol = strtolower(substr($_SERVER["SERVER_PROTOCOL"], 0, 5)) == 'https://' ? 'https://' : 'http://';
+
+        // return: http://localhost/myproject/
+//        return $protocol . $hostName . $pathInfo['dirname'] . "/";
+        return $protocol . $hostName . "/";
     }
 
 //    private function getContent()
