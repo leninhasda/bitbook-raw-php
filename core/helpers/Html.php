@@ -62,12 +62,8 @@ class Html
 //Input tags
     public static function input($type, $attributes = [])
     {
-        $string = '';
-        $tagName = 'input';
-        $string .= '<' . $tagName . ' type=' . $type;
-        $string .= self::checkAttributes($attributes);
-        $string .= '/>';
-        return $string;
+        $attributes['type'] = $type;
+        return static::tag('input', '', $attributes);
     }
 
     public static function textInput($attributes = [])
