@@ -38,8 +38,15 @@ echo CHR(10);
 //
 //echo Html::div('Hasda', ['id' => '1', 'class' => 'a 123']);
 
+//$test = Html::textarea('', ['id' => '1', 'class' => 'a 123', 'placeholder' => 'test input']);
+//$test .= Html::input('text', ['id' => '1', 'class' => 'a 123', 'placeholder' => 'test input']);
 
+
+echo Html::beginForm('/form/test()', 'post', ['id' => '1', 'class' => 'a 123']);
 echo Html::input('text', ['id' => '1', 'class' => 'a 123', 'placeholder' => 'test input']);
+echo Html::passwordInput(['name' => 'testName', 'id' => '1', 'class' => 'a 123']);
+echo Html::endForm();
+//echo Html::input('text', ['id' => '1', 'class' => 'a 123', 'placeholder' => 'test input']);
 ?>
 
 

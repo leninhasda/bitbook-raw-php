@@ -80,6 +80,26 @@ class Html
         return self::input('password', $attributes);
     }
 
+    public static function textarea($content = '', $attributes = [])
+    {
+        return self::tag('textarea', $content, $attributes);
+    }
+
+//    forms
+    public static function beginForm($action = '', $method = 'post', $attributes = [])
+    {
+        $action = static::urlTo($action);
+        $attributes['action'] = $action;
+        $attributes['method'] = $method;
+        $form = static::tag('form', '', $attributes);
+        return $form;
+    }
+
+    public static function endForm()
+    {
+        return '</form>';
+    }
+
 //    --------------------------------------------------
     public static function checkAttributes($attributes)
     {
@@ -112,6 +132,8 @@ class Html
         //checking if tag is selfCloser
         if (in_array($tagName, $selfClosers)) {
             $string .= '/>';
+        } elseif ($tagName === "form") {
+            $string .= '>';
         } else {
             $string .= '>' . $content . '</' . $tagName . '>';
         }
